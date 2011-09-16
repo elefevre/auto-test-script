@@ -2,7 +2,7 @@
 
 AutoTestScript is a simple bash script that run tests continuously.
 
-It is made to work with reasonably small projects (not too many files). It is likely to be slow on projects that have a large number of files.
+It works by continuously monitoring the files below the current director. The impact on the hard disk has been found negligeable on a large-ish project (13,000 files, on a Mac Pro from 2009).
 
 It currently only works on Mac OSX.
 
