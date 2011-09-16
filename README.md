@@ -15,5 +15,5 @@ It currently only works on Mac OSX.
 
 Run the script with the appropriate test command in parameter.
 
-	./autorun.sh cake midje	# to test a Clojure project continuously midje
+	./autorun.sh cake midje	# to test a Clojure project continuously using midje
 	./autorun.sh mvn verify	# to test a Maven project
