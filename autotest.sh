@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEST_COMMAND="cake midje"
+TEST_COMMAND="$@"
 previousModifiedTime="0"
 
 while true; do
