@@ -1,5 +1,6 @@
 #!/bin/bash
 
+TEST_COMMAND="cake midje"
 previousModifiedTime="0"
 
 while true; do
@@ -9,7 +10,7 @@ while true; do
 		previousModifiedTime=$fileModifiedTime
 		clear
 		date
-		cake midje 2>&1 | tail -1000		# replace with your own test command if needed
+		$TEST_COMMAND 2>&1 | tail -1000		# replace with your own test command if needed
 	fi
 	if [ $previousModifiedTime == $fileModifiedTime ]; then
 		echo -e "|\c"
