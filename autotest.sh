@@ -1,20 +1,27 @@
 #!/bin/bash
 
 TEST_COMMAND="$@"
-previousModifiedTime="0"
 
+SYSTEM_NAME=`uname`
+if [ $SYSTEM_NAME == "Darwin" ]; then
+	FILEDATE_COMMAND='stat -f "%m" {}'
+fi
+if [ $SYSTEM_NAME != "Darwin" ]; then
+	FILEDATE_COMMAND='stat -c "%Y" {}'
+fi
+
+previousModifiedTime="0"
 while true; do
-	mostRecentlyChangedFile=`find . -mtime -2 -type f -exec ls -l {} \; | sort -k6 | tail -1 | awk '{print $9}'`
-	fileModifiedTime=`stat -f "%m" $mostRecentlyChangedFile`
+	fileModifiedTime=`find . -mtime -1 -type f -exec $FILEDATE_COMMAND \; | sort | tail -1`
+	if [ $previousModifiedTime == $fileModifiedTime ]; then
+		echo -e "|\c"
+	fi
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
 		clear
 		echo -e "Last run on \c"
 		date
-		$TEST_COMMAND 2>&1 | tail -1000		# replace with your own test command if needed
-	fi
-	if [ $previousModifiedTime == $fileModifiedTime ]; then
-		echo -e "|\c"
+		$TEST_COMMAND 2>&1 | tail -1000
 	fi
 	sleep 1
 done
