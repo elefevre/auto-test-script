@@ -8,7 +8,7 @@ It works on Mac OS X and Ubuntu. It should work on any Unix derivative.
 
 ## Installation
 
-1. [Download the script](https://raw.github.com/elefevre/AutoTestScript/master/autotest.sh)
+1. [Download the script](https://raw.github.com/elefevre/AutoTestScript/master/autotest.sh), or clone the project
 2. Place it at the root of your project (or anywhere in your path) and chmod it to be executable.
 
 ## Usage
