@@ -19,9 +19,9 @@ while true; do
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
 		clear
-		echo -e "Last run on \c"
-		date
+		echo -e "\"$TEST_COMMAND\" started at \c" && date
 		$TEST_COMMAND 2>&1 | tail -1000
+		echo -e "\"$TEST_COMMAND\" completed at \c" && date
 	fi
 	sleep 1
 done
