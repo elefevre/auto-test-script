@@ -20,8 +20,9 @@ while true; do
 		previousModifiedTime=$fileModifiedTime
 		clear
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
+		set SECONDS = 0
 		$TEST_COMMAND 2>&1 | tail -1000
-		echo -e "\"$TEST_COMMAND\" completed at \c" && date
+		echo -e "\"$TEST_COMMAND\" completed in $(($SECONDS/60))m $(($SECONDS%60))s at \c" && date
 	fi
 	sleep 1
 done
