@@ -10,19 +10,37 @@ if [ $SYSTEM_NAME != "Darwin" ]; then
 	FILEDATE_COMMAND='stat -c "%Y" {}'
 fi
 
+SPINNER=1
+
 previousModifiedTime="0"
 while true; do
-	fileModifiedTime=`find . -mtime -1 -type f -exec $FILEDATE_COMMAND \; | sort | tail -1`
+	fileModifiedTime=`find . -mtime -10 -type f -exec $FILEDATE_COMMAND \; | sort | tail -1`
 	if [ $previousModifiedTime == $fileModifiedTime ]; then
-		echo -e "|\c"
+		echo -e "\r\c"
+		SPINNER=$((SPINNER+1))
+		if [ $SPINNER == 1 ]; then
+			echo -e "|\c"
+		fi
+		if [ $SPINNER == 2 ]; then
+			echo -e "/\c"
+		fi
+		if [ $SPINNER == 3 ]; then
+			echo -e "-\c"
+		fi
+		if [ $SPINNER == 4 ]; then
+			echo -e "\\\\\c"
+			SPINNER=0
+		fi
+
 	fi
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
 		clear
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
-		set SECONDS = 0
-		$TEST_COMMAND 2>&1 | tail -1000
-		echo -e "\"$TEST_COMMAND\" completed in $(($SECONDS/60))m $(($SECONDS%60))s at \c" && date
+		START_TIME=$SECONDS
+		$TEST_COMMAND
+		ELAPSED=$(($SECONDS-$START_TIME))
+		echo -e "\"$TEST_COMMAND\" completed in $(($ELAPSED/60))m $(($ELAPSED%60))s at \c" && date
 	fi
-	sleep 1
+	sleep 0.2
 done
