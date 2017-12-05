@@ -15,6 +15,10 @@ SPINNER=1
 previousModifiedTime="0"
 while true; do
 	fileModifiedTime=`find . -mtime -10 -type f -exec $FILEDATE_COMMAND \; | sort | tail -1`
+	if [ "$fileModifiedTime" == "" ]; then
+		# no file more recent than 10 days
+		fileModifiedTime=$previousModifiedTime
+	fi
 	if [ $previousModifiedTime == $fileModifiedTime ]; then
 		echo -e "\r\c"
 		SPINNER=$((SPINNER+1))
@@ -35,6 +39,7 @@ while true; do
 	fi
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
+		echo -e "\n\n************************* new test run below **********************************"
 		clear
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
 		START_TIME=$SECONDS
