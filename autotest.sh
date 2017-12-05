@@ -7,7 +7,7 @@ if [ $SYSTEM_NAME == "Darwin" ]; then
 	FILEDATE_COMMAND='stat -f "%m" {}'
 fi
 if [ $SYSTEM_NAME != "Darwin" ]; then
-	FILEDATE_COMMAND='stat -c "%Y" {}'
+	FILEDATE_COMMAND='stat -c "%Y-%n" {}'
 fi
 
 SPINNER=1
@@ -39,7 +39,8 @@ while true; do
 	fi
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
-		echo -e "\n\n************************* new test run below **********************************"
+		echo -e "\n\nChanged file: $fileModifiedTime"
+		echo -e "************************* new test run below **********************************"
 		clear
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
 		START_TIME=$SECONDS
