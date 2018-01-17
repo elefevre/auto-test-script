@@ -16,8 +16,8 @@ It works on Mac OS X and Ubuntu. It should work on any Unix derivative.
 Run the script with the appropriate test command in parameter.
 
 	# to run tests on a Clojure project using midje
-	./autorun.sh cake midje
+	./autotest.sh cake midje
 	# to run tests on a Maven project
-	./autorun.sh mvn verify
+	./autotest.sh mvn verify
 	# to run tests on a Go project
-	./autorun.sh go test
+	./autotest.sh go test
