@@ -35,8 +35,8 @@ while true; do
 			echo -e "\\\\\c"
 			SPINNER=0
 		fi
-
 	fi
+
 	if [ $previousModifiedTime != $fileModifiedTime ]; then
 		previousModifiedTime=$fileModifiedTime
 		echo -e "\n\nChanged file: $fileModifiedTime"
@@ -44,7 +44,14 @@ while true; do
 		clear
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
 		START_TIME=$SECONDS
+
 		$TEST_COMMAND
+		if [ $? == 0 ]; then
+			echo SUCCESS
+		else
+			echo FAILURE!
+		fi
+
 		ELAPSED=$(($SECONDS-$START_TIME))
 		echo -e "\"$TEST_COMMAND\" completed in $(($ELAPSED/60))m $(($ELAPSED%60))s at \c" && date
 	fi
