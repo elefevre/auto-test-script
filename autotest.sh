@@ -41,7 +41,7 @@ while true; do
 		previousModifiedTime=$fileModifiedTime
 		echo -e "\n\nChanged file: $fileModifiedTime"
 		echo -e "************************* new test run below **********************************"
-		clear
+		clear -x
 		echo -e "\"$TEST_COMMAND\" started at \c" && date
 		START_TIME=$SECONDS
 
