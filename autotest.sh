@@ -13,10 +13,15 @@ fi
 SPINNER=1
 
 previousModifiedTime="0"
+firstRun="true"
 while true; do
 	fileModifiedTime=`find . -mtime -10 -type f -exec $FILEDATE_COMMAND \; | sort | tail -1`
 	if [ "$fileModifiedTime" == "" ]; then
-		# no file more recent than 10 days
+		if [ "$firstRun" == "true" ]; then
+			echo "no file changed in the past 10 days"
+			echo "go and change something!"
+			firstRun="false"
+		fi
 		fileModifiedTime=$previousModifiedTime
 	fi
 	if [ $previousModifiedTime == $fileModifiedTime ]; then
